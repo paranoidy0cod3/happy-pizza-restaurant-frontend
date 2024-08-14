@@ -1,12 +1,27 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  Error,
+  Home,
+  Signup,
+  Login,
+  Success,
+  Verifyotp,
+  ResetPassword,
+} from "./pages";
 
 function App() {
   return (
-    <>
-      <h1 className="bg-gray-600">hello world!</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/*" element={<Error />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ResetPassword />} />
+        <Route path="/veryfy-otp" element={<Verifyotp />} />
+        <Route path="/success" element={<Success />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
