@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { setSearch } from "../redux/slices/SearchSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearch } from "../redux/slices/SearchSlice";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
 import NavList from "./NavList";
 import axios from "axios";
-// import { loginUser, setUser } from "../redux/slices/AuthSlice";
+import { loginUser, setUser } from "../redux/slices/AuthSlice";
 // import { getCart } from "../helper";
-// import { setCart } from "../redux/slices/CartSlice";
+import { setCart } from "../redux/slices/CartSlice";
 
 axios.defaults.withCredentials = true;
 
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState(false);
+  const dispatch = useDispatch();
   return (
     <nav className="flex flex-col lg:flex-row justify-between py-3 mx-6 mb-10">
       <div>
@@ -28,7 +29,7 @@ const Navbar = () => {
           id=""
           placeholder="Search here"
           autoComplete="off"
-          // onChange={(e) => dispatch(setSearch(e.target.value))}
+          onChange={(e) => dispatch(setSearch(e.target.value))}
           className="p-3 border border-gray-400 text-sm rounded-lg outline-none w-full lg:w-[25vw]"
         />
       </div>

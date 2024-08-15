@@ -1,6 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import { IoMdClose } from "react-icons/io";
+import { FaShoppingCart } from "react-icons/fa";
+import ItemCard from "./ItemCard";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const Cart = () => {
+  const [activeCart, setActiveCart] = useState(false);
+
+  const cartItems = useSelector((state) => state.cart.cart);
+
+  const totalQty = cartItems.reduce(
+    (totalQty, item) => totalQty + item.quantity,
+    0
+  );
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
+
+  const navigate = useNavigate();
+
+  const checkout = async () => {
+    const res = await axios.get(
+      "https://flavoro-clone-backend.onrender.com/api/checkout"
+    );
+    const { url } = await res.data;
+    window.location.href = url;
+  };
+
   return (
     <>
       <div

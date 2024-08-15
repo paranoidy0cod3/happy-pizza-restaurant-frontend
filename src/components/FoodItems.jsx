@@ -5,8 +5,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 const FoodItems = () => {
-  const category = useSelector((state) => state.category);
-  const search = useSelector((state) => state.search);
+  const category = useSelector((state) => state.category.category);
+  const search = useSelector((state) => state.search.search);
   const handleToast = (name) => toast.success(`Added ${name} `);
   return (
     <>

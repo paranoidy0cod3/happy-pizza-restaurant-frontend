@@ -11,7 +11,6 @@ const CategoryMenu = () => {
       ...new Set(FoodData.map((food) => food.category)),
     ];
     setCategories(uniqueCategories);
-    console.log(uniqueCategories);
   };
 
   useEffect(() => {
@@ -19,8 +18,7 @@ const CategoryMenu = () => {
   }, []);
 
   const dispatch = useDispatch();
-  const selectedCategory = useSelector((state) => state.category);
-  console.log(selectedCategory);
+  const selectedCategory = useSelector((state) => state.category.category);
 
   return (
     <div className="ml-6">
