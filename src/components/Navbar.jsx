@@ -8,19 +8,39 @@ import axios from "axios";
 import { loginUser, setUser } from "../redux/slices/AuthSlice";
 // import { getCart } from "../helper";
 import { setCart } from "../redux/slices/CartSlice";
+import { Navigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
 const Navbar = () => {
-  const [toggleNav, setToggleNav] = useState(false);
   const dispatch = useDispatch();
+  const [toggleNav, setToggleNav] = useState(false);
+
+  // const auth = useSelector((state) => state.auth.accessToken);
+  const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/api/v1/user/current-user"
+        );
+        dispatch(loginUser(res.data));
+      } catch (error) {
+        console.log(error);
+        // Navigate("/login");
+      }
+    };
+    fetchCurrentUser();
+  }, []);
+
   return (
     <nav className="flex flex-col lg:flex-row justify-between py-3 mx-6 mb-10">
       <div>
         <h3 className="text-xl font-bold text-gray-600">
           {new Date().toUTCString().slice(0, 16)}
         </h3>
-        <h1 className="text-2xl font-bold ">Happy Pizza Siem Reap</h1>
+        <h1 className="text-2xl font-bold ">Flavoro Foods</h1>
       </div>
       <div>
         <input
@@ -45,7 +65,11 @@ const Navbar = () => {
         } transition-all ease-in-out duration-500`}
         onClick={() => setToggleNav(false)}
       />
-      <NavList toggleNav={toggleNav} setToggleNav={setToggleNav} />
+      <NavList
+        toggleNav={toggleNav}
+        setToggleNav={setToggleNav}
+        loggedInUser={loggedInUser}
+      />
     </nav>
   );
 };

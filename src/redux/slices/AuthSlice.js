@@ -1,19 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { FaCookie } from "react-icons/fa";
 
 const AuthSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null,
-    isAuth: false,
+    loggedInUser: null,
+    accessToken: null,
   },
 
   reducers: {
     loginUser: (state, action) => {
-      state.isAuth = true;
+      state.loggedInUser = action.payload;
+      // state.accessToken = action.payload.data.user.accessToken;
     },
     logoutUser: (state, action) => {
-      state.user = null;
-      state.isAuth = false;
+      state.loggedInUser = null;
+      state.accessToken = null;
     },
     setUser: (state, action) => {
       state.user = action.payload;

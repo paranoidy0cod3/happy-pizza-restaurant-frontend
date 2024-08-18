@@ -1,5 +1,5 @@
 import Home from "./Home";
-import Login from "./Error";
+import Login from "./Login";
 import Signup from "./Signup";
 import ResetPassword from "./ResetPassword";
 import Error from "./Error";

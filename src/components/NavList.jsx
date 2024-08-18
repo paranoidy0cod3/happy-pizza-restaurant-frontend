@@ -1,15 +1,28 @@
-import React from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logoutUser } from "../redux/slices/AuthSlice";
+import { useEffect } from "react";
+const NavList = ({ toggleNav, setToggleNav, loggedInUser }) => {
+  const dispatch = useDispatch();
+  const handleLogout = async () => {
+    const res = await axios.post("http://localhost:8000/api/v1/user/logout", {
+      user: loggedInUser,
+    });
+    const data = await res.data;
+    toast.success(data.message);
+    dispatch(logoutUser());
+    window.location.href = "/";
+  };
 
-const NavList = ({ toggleNav, setToggleNav, auth }) => {
-  const handleLogout = () => {};
   return (
     <div
       className={` ${
         !toggleNav && "translate-x-[200px]"
       } fixed top-12 right-5 lg:right-8 p-3 w-fit bg-white bg-opacity-10 backdrop-blur-sm flex flex-col justify-center items-start rounded-lg shadow-md border border-white font-bold text-gray-600 transtion-all duration-500 ease-in-out`}
     >
-      {auth ? (
+      {loggedInUser ? (
         <li
           onClick={handleLogout}
           className="hover:text-black select-none list-none"

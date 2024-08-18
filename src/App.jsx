@@ -14,11 +14,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/*" element={<Error />} />
-        <Route path="/signup" element={<Signup />} />
+        {/* <Route path="/*" element={<Error />} /> */}
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ResetPassword />} />
-        <Route path="/veryfy-otp" element={<Verifyotp />} />
+        <Route path="/verify-otp" element={<Verifyotp />} />
         <Route path="/success" element={<Success />} />
       </Routes>
     </BrowserRouter>

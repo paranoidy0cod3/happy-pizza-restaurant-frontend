@@ -8,7 +8,7 @@ import { setCart } from "../redux/slices/CartSlice";
 
 const FoodCard = ({ id, name, price, desc, img, rating, handleToast }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.loggedInUser);
 
   const addToCart = async ({ id, name, img, price, rating, quantity }) => {
     const res = await axios.post(
