@@ -13,7 +13,7 @@ const ResetPassword = () => {
 
     try {
       const res = await axios.put(
-        "http://localhost:8000/api/v1/user/reset-password",
+        "https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/reset-password",
         {
           email,
         }

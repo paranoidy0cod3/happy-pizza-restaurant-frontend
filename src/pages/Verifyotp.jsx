@@ -13,7 +13,7 @@ const VerifyOtp = () => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        "http://localhost:8000/api/v1/user/verify-otp",
+        "https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/verify-otp",
         {
           otp,
           newPassword: password,

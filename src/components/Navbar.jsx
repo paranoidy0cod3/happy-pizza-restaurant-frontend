@@ -23,7 +23,7 @@ const Navbar = () => {
     const fetchCurrentUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/user/current-user"
+          "https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/current-user"
         );
         dispatch(loginUser(res.data.data));
       } catch (error) {

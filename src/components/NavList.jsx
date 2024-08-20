@@ -7,9 +7,12 @@ import { useEffect } from "react";
 const NavList = ({ toggleNav, setToggleNav, loggedInUser }) => {
   const dispatch = useDispatch();
   const handleLogout = async () => {
-    const res = await axios.post("http://localhost:8000/api/v1/user/logout", {
-      user: loggedInUser,
-    });
+    const res = await axios.post(
+      "https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/logout",
+      {
+        user: loggedInUser,
+      }
+    );
     const data = await res.data;
     toast.success(data.message);
     dispatch(logoutUser());

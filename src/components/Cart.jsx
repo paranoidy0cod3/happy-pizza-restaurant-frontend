@@ -24,7 +24,9 @@ const Cart = () => {
     if (!loggedInUser) {
       toast.error("login for place order.");
     }
-    const res = await axios.get("http://localhost:8000/api/v1/cart/checkout");
+    const res = await axios.get(
+      "https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/checkout"
+    );
     const url = await res.data.data;
 
     window.location.href = url;

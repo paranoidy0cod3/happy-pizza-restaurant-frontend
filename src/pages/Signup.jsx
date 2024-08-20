@@ -15,7 +15,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/v1/user/register`,
+        `https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/register`,
         {
           name,
           email,

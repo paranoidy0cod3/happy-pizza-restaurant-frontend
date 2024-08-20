@@ -18,7 +18,7 @@ const ItemCard = ({ id, name, quantity, price, image, _id }) => {
   const user = useSelector((state) => state.auth.user);
   const removeFromCart = async (id) => {
     const res = await axios.delete(
-      `http://localhost:8000/api/v1/cart/remove-from-cart/${id}`
+      `https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/remove-from-cart/${id}`
     );
     const data = await res.data;
     dispatch(removeCartItem(data.data));
@@ -27,7 +27,7 @@ const ItemCard = ({ id, name, quantity, price, image, _id }) => {
 
   const incrementQuantity = async (id) => {
     const res = await axios.put(
-      `http://localhost:8000/api/v1/cart/increment-quantity/${id}`
+      `https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/increment-quantity/${id}`
     );
     const data = await res.data;
     dispatch(incrementQTY(data.data));
@@ -35,7 +35,7 @@ const ItemCard = ({ id, name, quantity, price, image, _id }) => {
 
   const decrementQuantity = async (id) => {
     const res = await axios.put(
-      `http://localhost:8000/api/v1/cart/decrement-quantity/${id}`
+      `https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/decrement-quantity/${id}`
     );
     const data = await res.data;
     dispatch(decrementQTY(data.data));

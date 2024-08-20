@@ -9,10 +9,11 @@ import { setCart } from "../redux/slices/CartSlice";
 const FoodCard = ({ id, name, price, desc, img, rating, handleToast }) => {
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+  console.log(loggedInUser);
 
   const addToCart = async ({ id, name, img, price, rating, quantity }) => {
     const res = await axios.post(
-      `http://localhost:8000/api/v1/cart/add-to-cart/${loggedInUser._id}`,
+      `https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/add-to-cart/${loggedInUser._id}`,
       {
         id,
         image: img,
