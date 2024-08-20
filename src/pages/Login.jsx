@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/axios.config";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,13 +15,10 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/login",
-        {
-          email,
-          password,
-        }
-      );
+      const res = await axios.post("/user/login", {
+        email,
+        password,
+      });
       const data = await res.data;
 
       if (res.status === 200) {

@@ -5,8 +5,7 @@ import ItemCard from "./ItemCard";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import axios from "../utils/axios.config";
 
 const Cart = () => {
   const [activeCart, setActiveCart] = useState(false);
@@ -24,9 +23,7 @@ const Cart = () => {
     if (!loggedInUser) {
       toast.error("login for place order.");
     }
-    const res = await axios.get(
-      "https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/checkout"
-    );
+    const res = await axios.get("/cart/checkout");
     const url = await res.data.data;
 
     window.location.href = url;

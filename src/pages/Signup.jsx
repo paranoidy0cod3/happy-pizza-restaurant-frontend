@@ -1,8 +1,7 @@
-import axios from "axios";
+import axios from "../utils/axios.config";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-axios.defaults.withCredentials = true;
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -14,14 +13,11 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/register`,
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      const res = await axios.post(`/user/register`, {
+        name,
+        email,
+        password,
+      });
 
       const data = await res.data;
       if (res.status === 201) {

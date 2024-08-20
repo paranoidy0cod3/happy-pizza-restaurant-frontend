@@ -1,18 +1,15 @@
-import axios from "axios";
+import axios from "../utils/axios.config";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../redux/slices/AuthSlice";
-import { useEffect } from "react";
+
 const NavList = ({ toggleNav, setToggleNav, loggedInUser }) => {
   const dispatch = useDispatch();
   const handleLogout = async () => {
-    const res = await axios.post(
-      "https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/logout",
-      {
-        user: loggedInUser,
-      }
-    );
+    const res = await axios.post("/user/logout", {
+      user: loggedInUser,
+    });
     const data = await res.data;
     toast.success(data.message);
     dispatch(logoutUser());

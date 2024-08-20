@@ -2,9 +2,8 @@ import React from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-
 import { toast } from "react-hot-toast";
-import axios from "axios";
+import axios from "../utils/axios.config";
 import { getCart } from "../utils/getCartData.helper";
 import {
   setCart,
@@ -17,26 +16,20 @@ const ItemCard = ({ id, name, quantity, price, image, _id }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const removeFromCart = async (id) => {
-    const res = await axios.delete(
-      `https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/remove-from-cart/${id}`
-    );
+    const res = await axios.delete(`/cart/remove-from-cart/${id}`);
     const data = await res.data;
     dispatch(removeCartItem(data.data));
     toast.success(data.message);
   };
 
   const incrementQuantity = async (id) => {
-    const res = await axios.put(
-      `https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/increment-quantity/${id}`
-    );
+    const res = await axios.put(`/cart/increment-quantity/${id}`);
     const data = await res.data;
     dispatch(incrementQTY(data.data));
   };
 
   const decrementQuantity = async (id) => {
-    const res = await axios.put(
-      `https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/decrement-quantity/${id}`
-    );
+    const res = await axios.put(`/cart/decrement-quantity/${id}`);
     const data = await res.data;
     dispatch(decrementQTY(data.data));
   };

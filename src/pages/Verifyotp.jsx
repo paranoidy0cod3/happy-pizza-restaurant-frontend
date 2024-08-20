@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "../utils/axios.config";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -12,13 +12,10 @@ const VerifyOtp = () => {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(
-        "https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/verify-otp",
-        {
-          otp,
-          newPassword: password,
-        }
-      );
+      const res = await axios.put("/user/verify-otp", {
+        otp,
+        newPassword: password,
+      });
       const data = await res.data;
       if (data.success) {
         toast.success(data.message);

@@ -4,13 +4,10 @@ import { setSearch } from "../redux/slices/SearchSlice";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
 import NavList from "./NavList";
-import axios from "axios";
+import axios from "../utils/axios.config";
 import { loginUser, setUser } from "../redux/slices/AuthSlice";
-// import { getCart } from "../helper";
 import { setCart } from "../redux/slices/CartSlice";
 import { Navigate } from "react-router-dom";
-
-axios.defaults.withCredentials = true;
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -22,9 +19,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const res = await axios.get(
-          "https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/current-user"
-        );
+        const res = await axios.get("/user/current-user");
         dispatch(loginUser(res.data.data));
       } catch (error) {
         console.log(error);

@@ -1,11 +1,10 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "../utils/axios.config";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
 import { setCart } from "../redux/slices/CartSlice";
-axios.defaults.withCredentials = true;
 
 const Success = () => {
   const [loading, setLoading] = useState(true);
@@ -17,9 +16,7 @@ const Success = () => {
   }, []);
 
   const clearCart = async () => {
-    const res = await axios.get(
-      "https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/clear-cart"
-    );
+    const res = await axios.get("/cart/clear-cart");
     const data = await res.data;
     dispatch(setCart([]));
     localStorage.clear();

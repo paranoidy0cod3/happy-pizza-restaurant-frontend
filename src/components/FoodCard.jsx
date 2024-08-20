@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/axios.config";
 import React from "react";
 import toast from "react-hot-toast";
 import { AiFillStar } from "react-icons/ai";
@@ -9,20 +9,16 @@ import { setCart } from "../redux/slices/CartSlice";
 const FoodCard = ({ id, name, price, desc, img, rating, handleToast }) => {
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
-  console.log(loggedInUser);
 
   const addToCart = async ({ id, name, img, price, rating, quantity }) => {
-    const res = await axios.post(
-      `https://happy-pizza-restaurant-backend.onrender.com/api/v1/cart/add-to-cart/${loggedInUser._id}`,
-      {
-        id,
-        image: img,
-        name,
-        price,
-        rating,
-        quantity,
-      }
-    );
+    const res = await axios.post(`/cart/add-to-cart/${loggedInUser._id}`, {
+      id,
+      image: img,
+      name,
+      price,
+      rating,
+      quantity,
+    });
     const data = await res.data.data;
 
     toast.success("item addedd successfully!");

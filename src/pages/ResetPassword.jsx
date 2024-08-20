@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/axios.config";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -12,12 +12,9 @@ const ResetPassword = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.put(
-        "https://happy-pizza-restaurant-backend.onrender.com/api/v1/user/reset-password",
-        {
-          email,
-        }
-      );
+      const res = await axios.put("/user/reset-password", {
+        email,
+      });
       const data = await res.data;
       if (data.success) {
         toast.success(data.message);
