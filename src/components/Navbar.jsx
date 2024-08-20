@@ -25,10 +25,10 @@ const Navbar = () => {
         const res = await axios.get(
           "http://localhost:8000/api/v1/user/current-user"
         );
-        dispatch(loginUser(res.data));
+        dispatch(loginUser(res.data.data));
       } catch (error) {
         console.log(error);
-        // Navigate("/login");
+        Navigate("/login");
       }
     };
     fetchCurrentUser();
@@ -40,7 +40,7 @@ const Navbar = () => {
         <h3 className="text-xl font-bold text-gray-600">
           {new Date().toUTCString().slice(0, 16)}
         </h3>
-        <h1 className="text-2xl font-bold ">Flavoro Foods</h1>
+        <h1 className="text-2xl font-bold ">Happy Pizza</h1>
       </div>
       <div>
         <input

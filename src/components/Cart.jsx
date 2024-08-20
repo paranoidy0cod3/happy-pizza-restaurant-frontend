@@ -4,30 +4,29 @@ import { FaShoppingCart } from "react-icons/fa";
 import ItemCard from "./ItemCard";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const Cart = () => {
   const [activeCart, setActiveCart] = useState(false);
 
+  const loggedInUser = useSelector((state) => state.auth.loggedInUser);
+
   const cartItems = useSelector((state) => state.cart.cart);
 
-  const totalQty = cartItems.reduce(
-    (totalQty, item) => totalQty + item.quantity,
-    0
-  );
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.quantity * item.price,
-    0
-  );
+  const totalQty = cartItems.reduce((acc, curr) => acc + curr.quantity, 0);
+  const totalPrice = cartItems.reduce((acc, curr) => acc + curr.totalPrice, 0);
 
   const navigate = useNavigate();
 
   const checkout = async () => {
-    const res = await axios.get(
-      "https://flavoro-clone-backend.onrender.com/api/checkout"
-    );
-    const { url } = await res.data;
+    if (!loggedInUser) {
+      toast.error("login for place order.");
+    }
+    const res = await axios.get("http://localhost:8000/api/v1/cart/checkout");
+    const url = await res.data.data;
+
     window.location.href = url;
   };
 
@@ -38,6 +37,7 @@ const Cart = () => {
           activeCart ? "translate-x-0" : "translate-x-full"
         } transition-all duration-500 z-50`}
       >
+        <Toaster position="top-center" reverseOrder={false} />
         <div className="flex justify-between items-center my-3">
           <span className="text-xl font-bold text-gray-800">My Order</span>
           <IoMdClose
@@ -59,7 +59,7 @@ const Cart = () => {
         <div className="absolute bottom-0 ">
           <h3 className="font-semibold text-gray-800">Items : {totalQty}</h3>
           <h3 className="font-semibold text-gray-800">
-            Total Amount : {totalPrice}
+            Total Amount : {totalPrice} $
           </h3>
           <hr className="w-[90vw] lg:w-[18vw] my-2" />
           <button
@@ -70,12 +70,14 @@ const Cart = () => {
           </button>
         </div>
       </div>
-      <FaShoppingCart
-        onClick={() => setActiveCart(!activeCart)}
-        className={`rounded-full bg-white shadow-md text-5xl p-3 fixed bottom-4 right-4 ${
-          totalQty > 0 && "animate-bounce delay-500 transition-all"
-        } `}
-      />
+      <div className="relative">
+        <FaShoppingCart
+          onClick={() => setActiveCart(!activeCart)}
+          className={`rounded-full bg-white shadow-md text-5xl p-3 fixed bottom-4 right-4 ${
+            totalQty > 0 && "animate-bounce delay-500 transition-all"
+          } `}
+        />
+      </div>
     </>
   );
 };

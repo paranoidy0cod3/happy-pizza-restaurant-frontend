@@ -3,16 +3,16 @@ import React from "react";
 import toast from "react-hot-toast";
 import { AiFillStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-// import { getCart } from "../helper";
+import { getCart } from "../utils/getCartData.helper";
 import { setCart } from "../redux/slices/CartSlice";
 
 const FoodCard = ({ id, name, price, desc, img, rating, handleToast }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.loggedInUser);
+  const loggedInUser = useSelector((state) => state.auth.loggedInUser);
 
   const addToCart = async ({ id, name, img, price, rating, quantity }) => {
     const res = await axios.post(
-      `https://flavoro-clone-backend.onrender.com/api/add-to-cart/${user._id}`,
+      `http://localhost:8000/api/v1/cart/add-to-cart/${loggedInUser._id}`,
       {
         id,
         image: img,
@@ -22,9 +22,10 @@ const FoodCard = ({ id, name, price, desc, img, rating, handleToast }) => {
         quantity,
       }
     );
-    const data = await res.data;
-    toast.success(data.message);
-    getCart(user).then((data) => dispatch(setCart(data.cartItems)));
+    const data = await res.data.data;
+
+    toast.success("item addedd successfully!");
+    getCart(loggedInUser).then((data) => dispatch(setCart(data)));
   };
 
   return (
@@ -32,7 +33,7 @@ const FoodCard = ({ id, name, price, desc, img, rating, handleToast }) => {
       <img
         src={img}
         alt=""
-        className="w-auto h-[130px]  hover:scale-110 cursor-grab transition-all duration-500 ease-in-out "
+        className="w-auto h-[130px] bg-white  hover:scale-110 cursor-grab transition-all duration-500 ease-in-out "
       />
       <div className="text-sm flex justify-between">
         <h2>{name}</h2>
@@ -45,7 +46,7 @@ const FoodCard = ({ id, name, price, desc, img, rating, handleToast }) => {
         </span>
         <button
           onClick={() => {
-            !user
+            !loggedInUser
               ? toast.error("Please login to add to cart")
               : addToCart({ id, name, img, price, rating, quantity: 1 });
           }}
