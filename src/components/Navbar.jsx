@@ -22,7 +22,7 @@ const Navbar = () => {
       dispatch(loginUser(res.data.data));
     } catch (error) {
       console.log(error);
-      navigate("/login");
+      // navigate("/login");
     }
   };
   useEffect(() => {
