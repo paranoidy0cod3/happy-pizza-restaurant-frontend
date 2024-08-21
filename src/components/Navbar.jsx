@@ -7,25 +7,25 @@ import NavList from "./NavList";
 import axios from "../utils/axios.config";
 import { loginUser, setUser } from "../redux/slices/AuthSlice";
 import { setCart } from "../redux/slices/CartSlice";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [toggleNav, setToggleNav] = useState(false);
 
   // const auth = useSelector((state) => state.auth.accessToken);
   const loggedInUser = useSelector((state) => state.auth.loggedInUser);
-
+  const fetchCurrentUser = async () => {
+    try {
+      const res = await axios.get("/user/current-user");
+      dispatch(loginUser(res.data.data));
+    } catch (error) {
+      console.log(error);
+      navigate("/login");
+    }
+  };
   useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const res = await axios.get("/user/current-user");
-        dispatch(loginUser(res.data.data));
-      } catch (error) {
-        console.log(error);
-        Navigate("/login");
-      }
-    };
     fetchCurrentUser();
   }, []);
 
