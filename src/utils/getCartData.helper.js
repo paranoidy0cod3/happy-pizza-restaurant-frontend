@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/axios.config";
 
 export const getCart = async (user) => {
   const res = await axios.get(
